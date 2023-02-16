@@ -21,6 +21,15 @@ If you have already established network connections, both on the campus of the E
 
   - For reasons of priority in the initialisation queue, use the following startup parameters: 1 Core, 0 GPUs, 0.5GB of RAM, 3 hours of runtime.
     
-4. Open a Terminal within this new environment and execute
+4. Open a Terminal (File --> New --> Terminal) within this new environment and execute
 
-    $ git clone 
+    $ git clone https://github.com/ramador09/Molecular-and-Materials-Modelling-FS2023.git
+    
+5. If you're able to view this very README.md file within the virtual Terminal, you're good to go!
+
+If you encounter issues with any of the above steps, please do not hesitate to post them in this thread, and I will attempt to address these issues (having gone through most of these potential issues myself already).
+
+Thanks very much for reading, and see you on Wednesday, 22.02 at 8am in ETZ E9!
+
+Best regards,
+Ray
