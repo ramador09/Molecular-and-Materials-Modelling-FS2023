@@ -19,7 +19,7 @@ If you have already established network connections, both on the campus of the E
 
 3. If you have already reached this step, you (hopefully, most likely) already fulfill all the prerequisites for opening an instance of JupyterLab on Euler. This can be done via the following link: https://jupyter.euler-dev.hpc.ethz.ch/hub/spawn
 
-  - For reasons of priority in the initialisation queue, use the following startup parameters: 1 Core, 0 GPUs, 0.5GB of RAM, 3 hours of runtime.
+  - For reasons of priority in the initialisation queue, use the following startup parameters: 1 Core, 0 GPUs, 0.5GB of RAM, 3 hours of runtime. After slide-selecting these values, start the server.
     
 4. Open a Terminal (File --> New --> Terminal) within this new environment and execute
 
