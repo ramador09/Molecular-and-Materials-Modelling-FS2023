@@ -1,0 +1,8 @@
+numpy
+scipy
+matplotlib
+jupyterlab_widgets
+ipywidgets
+ase
+nglview
+scikit-learn
