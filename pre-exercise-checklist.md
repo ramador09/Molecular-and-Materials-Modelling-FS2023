@@ -2,6 +2,7 @@ Pre-exercise checklist:
 
 1. Log into your account on `JupyterHub` in a similar manner as described in Exercise 1
 2. Use the terminal to move into the directory for the course:
+
 `$ cd Molecular-and-Materials-Modelling-FS2023`
 
 3. `pull` the newest exercise files from the GitHub repository by executing
