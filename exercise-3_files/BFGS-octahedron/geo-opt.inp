@@ -1,0 +1,82 @@
+&GLOBAL                       ! sets general information about the calculation 
+   PRINT_LEVEL LOW            ! prints only essential output 
+   PROJECT optimization       ! sets name of project
+   RUN_TYPE GEO_OPT           ! type of calculation is a geometry optimization 
+&END GLOBAL
+
+&MOTION			      ! parameters for motion are set 
+ &GEO_OPT
+  OPTIMIZER BFGS              ! Broyden-Fletcher-Goldfarb-Shanno for direct descent; preconditioned gradient
+  MAX_ITER  500               ! maximum number of geometry optimization steps
+  MAX_DR    0.001
+  RMS_DR    0.0003
+  MAX_FORCE 0.0001
+  RMS_FORCE 0.00003
+  &BFGS
+   USE_MODEL_HESSIAN yes      ! sets Hessian matrix as initial guess
+  &END BFGS
+ &END GEO_OPT
+ &PRINT
+  &TRAJECTORY on 
+   FORMAT xyz		       
+   &EACH		       
+    GEO_OPT 1		       
+   &END EACH
+  &END TRAJECTORY
+ &END PRINT
+&END MOTION
+
+&FORCE_EVAL                   ! characteristics of system and details of computaiton of energies and forces
+ METHOD Fist                  ! method to compute forces: FIST for molecular mechanics
+ STRESS_TENSOR ANALYTICAL
+ &MM
+    &FORCEFIELD    ! how to set up forcefield for classical calculations
+      &CHARGE
+        ATOM Ar
+        CHARGE 0.0
+      &END
+      &NONBONDED   ! setting parameters for LJ force
+        &LENNARD-JONES
+          atoms Ar Ar
+          EPSILON 119.8
+          SIGMA 3.405
+          RCUT 8.4
+        &END LENNARD-JONES
+      &END NONBONDED
+      &CHARGE
+        ATOM Kr
+        CHARGE 0.0
+      &END CHARGE
+    &END FORCEFIELD
+  &POISSON
+   PERIODIC NONE
+   &EWALD
+    EWALD_TYPE none		! standard real-space Coulomb potential computed with non-bonded contributions
+   &END EWALD
+  &END POISSON
+  &PRINT
+   &FF_INFO OFF
+    SPLINE_DATA
+    SPLINE_INFO
+   &END FF_INFO
+  &END PRINT
+ &END MM
+ &PRINT
+  &FORCES off
+  &END FORCES
+  &GRID_INFORMATION
+  &END GRID_INFORMATION
+ &END PRINT
+ &SUBSYS 			! section for the geometry of the system
+  &CELL
+   ABC 20 20 20
+   PERIODIC NONE
+  &END CELL
+  &TOPOLOGY
+      COORD_FILE_NAME octahedron.xyz
+      COORDINATE xyz
+      &CENTER_COORDINATES
+      &END
+  &END
+ &END SUBSYS
+&END FORCE_EVAL
