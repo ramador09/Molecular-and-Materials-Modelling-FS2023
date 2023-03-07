@@ -6,3 +6,4 @@ ipywidgets
 ase
 nglview
 scikit-learn
+scienceplots
