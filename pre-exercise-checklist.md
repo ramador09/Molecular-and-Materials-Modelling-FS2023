@@ -7,6 +7,7 @@ Pre-exercise checklist:
 
 3. `pull` the newest exercise files from the GitHub repository by executing
 ```
+    $ cd ~/Molecular-and-Materials-Modelling-FS2023
     $ git init
     $ git pull https://github.com/ramador09/Molecular-and-Materials-Modelling-FS2023.git
     $ cd exercise-i_files
