@@ -1,0 +1,40 @@
+&CONTROL
+  calculation='bands',
+  outdir='./out',
+  prefix='sic',
+  pseudo_dir='./pseudo',
+  verbosity='high',
+  tstress=.false.,
+  tprnfor=.false.,
+/
+
+&SYSTEM
+  ibrav=...............,
+  a=................
+  nat=.............,
+  ntyp=.................,
+  nbnd=10
+  ecutwfc=50.0d0,
+  ecutrho=400.0d0,
+  occupations='smearing'
+  degauss=0.001
+/
+&ELECTRONS
+  conv_thr =   1.0000000000d-08
+  electron_maxstep = 50
+  mixing_beta =   2.5000000000d-01
+  scf_must_converge = .false.
+/
+ATOMIC_SPECIES
+  Si ........................
+  C  .....................
+ATOMIC_POSITIONS {alat}
+  ..............................
+  ..............................
+
+K_POINTS {crystal_b}
+4
+  0.50  0.50  0.50 120  !L
+  0.00  0.00  0.00  60  !G
+  0.50  0.00  0.50  40  !X
+  0.625 0.25  0.625 40  !U

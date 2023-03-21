@@ -1,0 +1,36 @@
+&CONTROL
+  calculation='scf',
+  outdir='./',
+  prefix='si',
+  pseudo_dir='.',
+  verbosity='high',
+  tstress=.false.,
+  tprnfor=.false.,
+/
+
+&SYSTEM
+  ibrav=2,
+  celldm(1)=10.2623466921d0,
+  nat=2,
+  ntyp=1,
+  ecutwfc=40.0d0,
+  ecutrho=300.0d0,
+  nbnd=10,
+  occupations='smearing'
+  degauss=0.001
+/
+&ELECTRONS
+  conv_thr =   1.0000000000d-08
+  electron_maxstep = 50
+  mixing_beta =   2.5000000000d-01
+  scf_must_converge = .false.
+/
+ATOMIC_SPECIES
+  Si 28.085500d0 Si.pbe-n-rrkjus_psl.1.0.0.UPF
+
+ATOMIC_POSITIONS {alat}
+  Si   0.0000000000d0   0.0000000000d0   0.0000000000d0
+  Si   0.2500000000d0   0.2500000000d0   0.2500000000d0
+
+K_POINTS automatic
+6 6 6 1 1 1

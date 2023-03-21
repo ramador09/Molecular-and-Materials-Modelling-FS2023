@@ -1,0 +1,63 @@
+#!/bin/bash
+#SBATCH -N 1
+#SBATCH -n 2
+#SBATCH --time=0:10:00
+#SBATCH --job-name="task_0"
+#SBATCH --mem-per-cpu=1024
+#SBATCH --output=stdout.txt
+#SBATCH --error=stderr.txt
+
+module load intel/2022.1.2
+module load quantum_espresso/7.1
+#======START=====
+
+for k in 1 2 3 4 5 6
+do
+cat > pw.in << EOF
+&CONTROL
+  calculation='vc-relax',
+  outdir='./out',
+  prefix='sic',
+  pseudo_dir='./pseudo',
+  verbosity='high',
+  tstress=.true.,
+  tprnfor=.true.,
+  forc_conv_thr=0.0001
+/
+
+&SYSTEM
+  ibrav=.....,
+  a=4.36
+  nat=....,
+  ntyp=....,
+  ecutwfc=......,
+  ecutrho=.....,
+  occupations='smearing'
+  degauss=0.001
+/
+&ELECTRONS
+  conv_thr =   1.0000000000d-08
+  electron_maxstep = 50
+  mixing_beta =   2.5000000000d-01
+  scf_must_converge = .false.
+/
+&IONS
+/
+&CELL
+cell_dofree='ibrav'
+/
+ATOMIC_SPECIES
+  Si 28.0855 .........
+  C  12 ................
+
+ATOMIC_POSITIONS {alat}
+  ....................
+  ....................
+
+K_POINTS automatic
+${k} ${k} ${k} 1 1 1
+EOF
+
+srun -n 2  pw.x <pw.in > sic.out_k_${k}
+
+done

@@ -1,0 +1,66 @@
+&CONTROL
+    calculation = 'scf'
+    restart_mode = 'from_scratch'    ! 'restart' needs a cleanly stopped calculation in 'outdir'
+    outdir = './'                    ! in outdir folder 'prefix'.save is created, where all calc results are saved
+    prefix = '7agnr_2uc'             ! prepended to input/output filenames
+    pseudo_dir = '../pseudo'          ! folder needs to include all files referenced in section ATOMIC_SPECIES
+/
+&SYSTEM
+    ibrav = 8                        ! Simple lattice type with vectors (a, 0, 0), (0, b, 0), (0, 0, c)
+    a = 8.59975208056
+    b = 20
+    c = 15
+    nat = 36                         ! number of atoms in the unit cell
+    ntyp = 2                         ! number of types of atoms in the unit cell
+    ecutwfc = 30.0                  ! kinetic energy cutoff (Ry) for wavefunctions 
+    ecutrho = 240.0                  ! ecut for charge density (norm-conserving 4*ecutwfc, for ultrasoft 8*ecutwfc) (corresponds to CP2K CUTOFF and determines the real accuracy)
+    occupations = 'smearing'            ! 'smearing' for metals, 'fixed' for bad-gap materials
+    degauss=0.001
+/
+&ELECTRONS
+    electron_maxstep = 50            ! maximum number of iterations in a scf step (default: 100)
+    conv_thr = 1.0e-8                ! SCF calculation convergence threshold (estimated energy error < conv_thr)
+    mixing_beta = 0.25               ! mixing factor for SCF (default 0.7)
+/
+ATOMIC_SPECIES
+C 12.01070 C_pbe_v1.2.uspp.F.UPF             ! Mass and pseudopotential for each element (uspp = ultrasoft pp, hgh=gth=geodecker-teter-hutter)
+H 1.007940 H.pbe-rrkjus_psl.0.1.UPF
+ATOMIC_POSITIONS angstrom
+C       1.46470630       8.54239576       7.50000000
+C       2.83516974       8.54239576       7.50000000
+C       0.72025847       9.74810144       7.50000000
+C       1.43218199      10.97748668       7.50000000
+C       2.86769405      10.97748668       7.50000000
+C       3.57961757       9.74810144       7.50000000
+C       3.58895657      12.21386164       7.50000000
+C       2.86769405      13.45023660       7.50000000
+C       1.43218199      13.45023660       7.50000000
+C       0.71091947      12.21386164       7.50000000
+C       0.72025847      14.67962184       7.50000000
+C       1.46470630      15.88532752       7.50000000
+C       2.83516974      15.88532752       7.50000000
+C       3.57961757      14.67962184       7.50000000
+H       0.95060673      16.84368487       7.50000000
+H       3.34926931      16.84368487       7.50000000
+H       0.95060673       7.58403841       7.50000000
+H       3.34926931       7.58403841       7.50000000
+C     5.76458234     8.54239576     7.50000000 
+C     7.13504578     8.54239576     7.50000000 
+C     5.02013451     9.74810144     7.50000000 
+C     5.73205803    10.97748668     7.50000000 
+C     7.16757009    10.97748668     7.50000000 
+C     7.87949361     9.74810144     7.50000000 
+C     7.88883261    12.21386164     7.50000000 
+C     7.16757009    13.45023660     7.50000000 
+C     5.73205803    13.45023660     7.50000000 
+C     5.01079551    12.21386164     7.50000000 
+C     5.02013451    14.67962184     7.50000000 
+C     5.76458234    15.88532752     7.50000000 
+C     7.13504578    15.88532752     7.50000000 
+C     7.87949361    14.67962184     7.50000000 
+H     5.25048277    16.84368487     7.50000000 
+H     7.64914535    16.84368487     7.50000000 
+H     5.25048277     7.58403841     7.50000000 
+H     7.64914535     7.58403841     7.50000000 
+K_POINTS automatic
+20 1 1 0 0 0                        ! k-points in (x, y, z) directions and shift in (x, y, z)

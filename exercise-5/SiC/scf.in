@@ -1,0 +1,36 @@
+&CONTROL
+  calculation='scf',
+  outdir='./out',
+  prefix='sic',
+  pseudo_dir='./pseudo',
+  verbosity='high',
+  tstress=.false.,
+  tprnfor=.false.,
+/
+
+&SYSTEM
+  ibrav=.......,
+  a=.........
+  nat=2,
+  ntyp=.......,
+  nbnd=10
+  ecutwfc=.......,
+  ecutrho=......,
+  occupations='smearing'
+  degauss=0.001
+/
+&ELECTRONS
+  conv_thr =   1.0000000000d-08
+  electron_maxstep = 50
+  mixing_beta =   2.5000000000d-01
+  scf_must_converge = .false.
+/
+ATOMIC_SPECIES
+  Si ...............
+  C  ..............
+ATOMIC_POSITIONS {alat}
+  ....................
+  .....................
+
+K_POINTS automatic
+6 6 6 1 1 1
