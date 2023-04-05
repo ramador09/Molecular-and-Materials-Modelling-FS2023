@@ -9,7 +9,7 @@ $ ssh user@euler.ethz.ch
 $ cd /Molecular-and-llaalla
 # git stash: if necessary
 # git init: if necessary
-$ git clone https://github.com/ramador09/Molecular-and-Materials-Modelling-FS2023.git
+$ git pull https://github.com/ramador09/Molecular-and-Materials-Modelling-FS2023.git
 ```
 
 After submitting the calculations on Euler, we will copy them via scp to our local machine in order to do the post-processing.
