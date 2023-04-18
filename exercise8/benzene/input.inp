@@ -1,0 +1,105 @@
+!&EXT_RESTART
+!  RESTART_FILE_NAME MOLECULE_on_pt-1.restart
+!&END
+
+&FORCE_EVAL
+   &DFT
+      BASIS_SET_FILE_NAME BASIS_MOLOPT
+      CHARGE 0
+      &MGRID
+         CUTOFF 300
+         NGRIDS 5
+      &END MGRID
+      &POISSON
+         PERIODIC XYZ
+      &END POISSON
+      POTENTIAL_FILE_NAME POTENTIAL
+      &QS
+         EPS_DEFAULT 1e-14
+         EXTRAPOLATION ASPC
+         EXTRAPOLATION_ORDER 3
+         METHOD GPW
+      &END QS
+      &SCF
+         EPS_SCF 1e-06
+         MAX_SCF 30
+         &OT
+            MINIMIZER DIIS
+            PRECONDITIONER FULL_KINETIC
+         &END OT
+         &OUTER_SCF
+            EPS_SCF 1e-06
+            MAX_SCF 20
+         &END OUTER_SCF
+         &PRINT
+            &RESTART
+               ADD_LAST NUMERIC
+               &EACH
+                  GEO_OPT 1
+                  QS_SCF 0
+               &END EACH
+               FILENAME RESTART
+            &END RESTART
+            &RESTART_HISTORY OFF
+            &END RESTART_HISTORY
+         &END PRINT
+         SCF_GUESS RESTART
+      &END SCF
+@include "beefvdw.inc"                              
+   &END DFT
+   METHOD Quickstep
+   &SUBSYS
+      &CELL
+         A 16.6311514935076 0.0 0.0                 # MIGHT/WILL NEED TO CHANGE BASED ON THE SYSTEM!
+         B 8.3155757467538 14.402999687565085 0.0   # MIGHT/WILL NEED TO CHANGE BASED ON THE SYSTEM!
+         C 0.0 0.0 26.026426110446664               # MIGHT/WILL NEED TO CHANGE BASED ON THE SYSTEM!
+         PERIODIC XYZ
+         SYMMETRY HEXAGONAL
+      &END CELL
+   &KIND Pt
+     BASIS_SET DZVP-MOLOPT-SR-GTH-q18
+     POTENTIAL GTH-PBE-q18
+   &END KIND
+   &KIND H
+      BASIS_SET DZVP-MOLOPT-GTH
+      POTENTIAL GTH-PBE-q1
+   &END KIND
+   &KIND C
+      BASIS_SET DZVP-MOLOPT-GTH
+      POTENTIAL GTH-PBE-q4
+   &END KIND
+      &TOPOLOGY
+         COORD_FILE_FORMAT XYZ
+         COORD_FILE_NAME MOLECULE_on_pt.xyz
+      &END TOPOLOGY
+   &END SUBSYS
+&END FORCE_EVAL
+&GLOBAL
+   EXTENDED_FFT_LENGTHS
+   PRINT_LEVEL LOW
+   PROJECT MOLECULE_on_pt
+   RUN_TYPE GEO_OPT
+   WALLTIME 85800
+&END GLOBAL
+&MOTION
+   &CONSTRAINT
+      &FIXED_ATOMS
+        LIST  1..144
+      &END FIXED_ATOMS
+   &END CONSTRAINT
+   &GEO_OPT
+      &BFGS
+         TRUST_RADIUS [bohr] 0.1
+      &END BFGS
+      MAX_FORCE 0.003
+      MAX_DR 0.02
+      RMS_DR 0.02
+      RMS_FORCE 0.001
+      MAX_ITER 500
+      OPTIMIZER BFGS
+   &END GEO_OPT
+   &PRINT
+      &RESTART_HISTORY OFF
+      &END RESTART_HISTORY
+   &END PRINT
+&END MOTION
