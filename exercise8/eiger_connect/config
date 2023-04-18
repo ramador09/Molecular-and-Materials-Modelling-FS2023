@@ -1,0 +1,25 @@
+
+Host ela
+     User dpassero
+     ForwardAgent yes
+     Hostname ela.cscs.ch
+     ForwardX11 yes
+     ForwardX11Trusted yes
+     XAuthLocation /opt/local/bin/xauth
+Host daint
+     User dpassero
+     ForwardAgent yes
+     Hostname daint.cscs.ch
+     ProxyCommand ssh -q -Y dpassero@ela.cscs.ch -W %h:%p
+     ForwardX11 yes
+     ForwardX11Trusted yes
+     XAuthLocation /opt/local/bin/xauth
+Host eiger
+     User dpassero
+     ForwardAgent yes
+     Hostname eiger.cscs.ch
+     ProxyCommand ssh -q -Y dpassero@ela.cscs.ch -W %h:%p
+     ForwardX11 yes
+     ForwardX11Trusted yes
+     XAuthLocation /opt/local/bin/xauth
+
