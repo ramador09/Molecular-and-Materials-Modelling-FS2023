@@ -1,0 +1,91 @@
+&GLOBAL                        
+   PRINT_LEVEL SILENT
+   PROJECT production_38
+   RUN_TYPE MD            
+&END GLOBAL
+
+
+!!INSERT RESTART TEXT HERE
+
+&MOTION			       
+ &MD
+   ENSEMBLE NVE
+   STEPS 10000
+   &PRINT
+       &ENERGY SILENT
+          &EACH
+             MD 10
+          &END
+       &END
+    &END
+ 
+  &END MD
+ 
+ &PRINT
+  &RESTART
+    &EACH
+        MD 0
+    &END
+  &END
+  &RESTART_HISTORY OFF
+  &END
+  &TRAJECTORY on
+   FORMAT xyz		       
+   &EACH		       
+    MD 100		       
+   &END EACH
+  &END TRAJECTORY
+ &END PRINT
+&END MOTION
+
+
+&FORCE_EVAL
+ METHOD Fist
+ STRESS_TENSOR ANALYTICAL
+ &MM
+    &FORCEFIELD    
+      &CHARGE
+        ATOM Ar
+        CHARGE 0.0
+      &END
+      &NONBONDED   
+        &LENNARD-JONES
+          atoms Ar Ar
+          EPSILON 119.8
+          SIGMA 3.405
+          RCUT 8.4
+        &END LENNARD-JONES
+      &END NONBONDED
+    &END FORCEFIELD
+  &POISSON
+   PERIODIC NONE
+   &EWALD
+    EWALD_TYPE none
+   &END EWALD
+  &END POISSON
+  &PRINT
+   &FF_INFO OFF
+    SPLINE_DATA
+    SPLINE_INFO
+   &END FF_INFO
+  &END PRINT
+ &END MM
+ &PRINT
+  &FORCES off
+  &END FORCES
+  &GRID_INFORMATION
+  &END GRID_INFORMATION
+ &END PRINT
+ &SUBSYS
+  &CELL
+   ABC 150 150 150
+   PERIODIC NONE
+  &END CELL
+  &TOPOLOGY
+      COORD_FILE_NAME 38atoms.xyz
+      COORDINATE xyz
+      &CENTER_COORDINATES
+      &END
+  &END
+ &END SUBSYS
+&END FORCE_EVAL
