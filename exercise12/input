@@ -1,0 +1,40 @@
+# Initialization
+units            metal 
+dimension        3
+boundary         p p p
+atom_style       atomic 
+
+#
+#  region for the wall
+#
+
+region rs sphere 0 0 0 12.66
+
+read_data        input.dat
+
+mass 1 39.948
+
+pair_style lj/cut 8.5
+pair_coeff 1 1 0.01042 3.405  8.5
+variable i equal part
+
+variable t world  2.00    2.60    3.64    5    6.63    9.12   12.07   16   21.97   26.83   32.76   40.00
+velocity        all        create        $t        293288 
+velocity all zero linear 
+velocity all zero angular
+fix        1        all        nvt        temp        $t        $t        0.1
+fix  2 all wall/region rs harmonic 2.0 0.0 0.4
+
+
+thermo         1000
+thermo_style        custom        step  temp     pe ke etotal  
+thermo_modify       line        one
+
+restart 5000000 restart.*
+dump         2 all xyz 10000 structure_$i.xyz
+dump_modify  2 element "Ar" sort id
+
+temper 5000000 1000 $t 1 3678 3490
+neighbor            0.3        bin
+
+
