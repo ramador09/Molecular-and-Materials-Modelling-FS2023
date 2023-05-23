@@ -1,0 +1,72 @@
+&GLOBAL
+  PRINT_LEVEL LOW
+  PROJECT ch3cl
+  RUN_TYPE BAND                      
+&END GLOBAL
+
+&MOTION
+  &BAND
+    &OPTIMIZE_BAND
+      OPTIMIZE_END_POINTS .FALSE.
+    &END OPTIMIZE_BAND
+    
+    ALIGN_FRAMES .TRUE.
+    ROTATE_FRAMES .TRUE.
+    NUMBER_OF_REPLICA 10             
+    K_SPRING 0.05
+    &OPTIMIZE_BAND
+      OPT_TYPE DIIS
+      &DIIS
+        MAX_STEPS 1000
+      &END
+    &END
+    BAND_TYPE CI-NEB                 
+    &CI_NEB
+      NSTEPS_IT  5                   
+    &END
+    &REPLICA
+      COORD_FILE_NAME final-a.xyz
+    &END
+    &REPLICA
+      COORD_FILE_NAME final-b.xyz
+    &END
+    &PROGRAM_RUN_INFO
+     INITIAL_CONFIGURATION_INFO
+    &END
+  &END BAND
+&END MOTION
+
+&FORCE_EVAL
+  METHOD Quickstep
+  &DFT
+   CHARGE -1                     
+    &QS
+      METHOD PM6                  
+      &SE
+      &END SE
+    &END QS
+    &SCF                          
+      SCF_GUESS ATOMIC
+      EPS_SCF 1.0E-5
+      MAX_SCF 50
+       &OUTER_SCF
+          EPS_SCF 1.0E-7
+          MAX_SCF 500
+       &END
+    &END SCF
+    &POISSON                      
+      PERIODIC NONE
+      PSOLVER WAVELET
+    &END
+  &END DFT
+  &SUBSYS
+    &CELL
+      ABC 10.0 10.0 10.0
+      PERIODIC NONE
+    &END CELL
+    &TOPOLOGY
+      COORD_FILE_NAME final-a.xyz
+      COORDINATE xyz
+    &END TOPOLOGY
+  &END SUBSYS
+&END FORCE_EVAL
